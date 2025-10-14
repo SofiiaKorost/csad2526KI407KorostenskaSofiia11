@@ -51,7 +51,13 @@ jobs:
 
       - name: Install GoogleTest (Windows)
         if: runner.os == 'Windows'
-        run: choco install googletest -y
+        run: |
+          git clone https://github.com/google/googletest.git
+          cd googletest
+          cmake -B build -S .
+          cmake --build build --config Release
+          cmake --install build --prefix "C:\Program Files\GTest"
+
 
       # --- Run CI script for each OS ---
       - name: Run CI script (Linux/macOS)
