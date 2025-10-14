@@ -1,0 +1,5 @@
+/Users/mac/Desktop/csad2526KI407KorostenskaSofiia11/build/CMakeFiles/hello.dir
+/Users/mac/Desktop/csad2526KI407KorostenskaSofiia11/build/CMakeFiles/unit_tests.dir
+/Users/mac/Desktop/csad2526KI407KorostenskaSofiia11/build/CMakeFiles/test.dir
+/Users/mac/Desktop/csad2526KI407KorostenskaSofiia11/build/CMakeFiles/edit_cache.dir
+/Users/mac/Desktop/csad2526KI407KorostenskaSofiia11/build/CMakeFiles/rebuild_cache.dir
