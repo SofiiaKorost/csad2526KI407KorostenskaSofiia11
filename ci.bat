@@ -1,6 +1,9 @@
 @echo off
 echo [INFO] Running CI on Windows
 
+echo [INFO] Cleaning old build...
+if exist build rmdir /s /q build
+
 if not exist build mkdir build
 cd build
 
