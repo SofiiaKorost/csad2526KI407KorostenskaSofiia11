@@ -53,12 +53,12 @@ jobs:
         if: runner.os == 'Windows'
         run: choco install googletest -y
 
-      # --- Run the correct CI script depending on OS ---
-      - name: Run CI script
-        run: |
-          if [ "${{ runner.os }}" == "Windows" ]; then
-            ./ci.bat
-          else
-            ./ci.sh
-          fi
+      # --- Run CI script for each OS ---
+      - name: Run CI script (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: ./ci.sh
+
+      - name: Run CI script (Windows)
+        if: runner.os == 'Windows'
+        run: ci.bat
 

@@ -8,7 +8,8 @@ if not exist build mkdir build
 cd build
 
 echo [INFO] Configuring project with CMake...
-cmake ..
+:: Використовуємо vcpkg для GTest (якщо є)
+cmake .. -DCMAKE_TOOLCHAIN_FILE=..\vcpkg\scripts\buildsystems\vcpkg.cmake
 if errorlevel 1 (
     echo [ERROR] CMake configuration failed!
     exit /b 1
