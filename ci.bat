@@ -22,14 +22,14 @@ if errorlevel 1 (
 )
 
 echo [INFO] Building project...
-cmake --build .
+cmake --build . --config Release
 if errorlevel 1 (
     echo [ERROR] Build failed!
     exit /b 2
 )
 
 echo [INFO] Running tests with CTest...
-ctest --output-on-failure
+ctest -C Release --output-on-failure
 if errorlevel 1 (
     echo [ERROR] Tests failed!
     exit /b 3
