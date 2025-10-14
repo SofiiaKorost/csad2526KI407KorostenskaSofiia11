@@ -9,7 +9,7 @@ cd build
 
 echo [INFO] Configuring project with CMake...
 :: Використовуємо vcpkg для GTest (якщо є)
-cmake .. -DCMAKE_TOOLCHAIN_FILE=..\vcpkg\scripts\buildsystems\vcpkg.cmake
+cmake .. 
 if not exist "C:\Program Files\GTest" (
     echo [INFO] GoogleTest not found, using system default...
 ) else (
