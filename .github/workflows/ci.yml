@@ -66,5 +66,5 @@ jobs:
 
       - name: Run CI script (Windows)
         if: runner.os == 'Windows'
-        run: ci.bat
+        run: cmd /c ci.bat
 
