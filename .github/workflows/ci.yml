@@ -3,40 +3,42 @@ name: CI Workflow
 on:
   push:
     branches:
-      - '*develop*'
-      - '*master*'
+      - develop
+      - master
   pull_request:
     branches:
-      - '*develop*'
-      - '*master*'
+      - develop
+      - master
 
 jobs:
   cross_build:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Make script executable (Unix only)
+        if: runner.os != 'Windows'
+        run: chmod +x ./ci.sh
 
       - name: Install CMake
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y cmake
+      - name: Install CMake (macOS)
+        if: runner.os == 'macOS'
+        run: brew install cmake
+      - name: Install CMake (Windows)
+        if: runner.os == 'Windows'
+        run: choco install cmake
+
+      - name: Run CI script
         run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then
-            sudo apt-get update
-            sudo apt-get install cmake -y
-          elif [[ "$RUNNER_OS" == "macOS" ]]; then
-            brew install cmake
-          elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            choco install cmake
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            ./ci.bat
+          else
+            ./ci.sh
           fi
-
-      - name: Build project
-        run: |
-          chmod +x ./ci.sh
-          ./ci.sh
-
-      - name: Deploy
-        run: echo "Deploy step here"
 
