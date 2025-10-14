@@ -20,20 +20,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # --- Make script executable on Unix systems ---
       - name: Make script executable (Unix only)
         if: runner.os != 'Windows'
         run: chmod +x ./ci.sh
 
-      - name: Install CMake
+      # --- Install CMake on each OS ---
+      - name: Install CMake (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y cmake
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake
+
       - name: Install CMake (macOS)
         if: runner.os == 'macOS'
         run: brew install cmake
+
       - name: Install CMake (Windows)
         if: runner.os == 'Windows'
-        run: choco install cmake
+        run: choco install cmake -y
 
+      # --- Install GoogleTest on each OS ---
+      - name: Install GoogleTest (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libgtest-dev
+
+      - name: Install GoogleTest (macOS)
+        if: runner.os == 'macOS'
+        run: brew install googletest
+
+      - name: Install GoogleTest (Windows)
+        if: runner.os == 'Windows'
+        run: choco install googletest -y
+
+      # --- Run the correct CI script depending on OS ---
       - name: Run CI script
         run: |
           if [ "${{ runner.os }}" == "Windows" ]; then
