@@ -36,3 +36,16 @@
 2025-10-13 14:23:10.602 [info] request done: requestId: [a0638d0e-61b8-41d9-89e8-43a1df19bc5e]
 2025-10-13 14:23:10.602 [info] ccreq:9b0b2554.copilotmd | success | gpt-4.1 | 1740ms | [panel/editAgent]
 
+
+
+# My Copilot queries during project setup
+
+> create ci.yml for cross-platform build using CMake and GoogleTest
+> add Windows support to CI workflow
+> fix "ci.bat not recognized" in GitHub Actions
+> how to install GTest with CMake on Windows
+> cmake could not find toolchain file ..\vcpkg\scripts\buildsystems\vcpkg.cmake what to do
+> remove pthread from target_link_libraries for Windows build
+> how to commit file from terminal
+> why build fails with LINK : fatal error LNK1104 cannot open file 'pthread.lib'
+> what to put in copilot.txt file for teacher
