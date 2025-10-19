@@ -21,3 +21,5 @@ add_test(NAME unit_tests COMMAND unit_tests)
 # 4. make
 # 5. ./hello            # Run main program
 # 6. ctest OR ./unit_tests   # Run tests
+# Trigger CI/CD for Stage 6
+
