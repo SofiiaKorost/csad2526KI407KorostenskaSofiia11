@@ -9,9 +9,14 @@ add_executable(hello main.cpp)
 enable_testing()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
+include_directories(${CMAKE_SOURCE_DIR})
 
 add_executable(unit_tests tests/unit_tests.cpp math_operations.cpp)
-target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
+if(UNIX)
+    target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
+else()
+    target_link_libraries(unit_tests ${GTEST_LIBRARIES})
+endif()
 add_test(NAME unit_tests COMMAND unit_tests)
 
 # Instructions:
