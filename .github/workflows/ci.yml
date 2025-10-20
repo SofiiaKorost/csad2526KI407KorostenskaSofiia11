@@ -1,0 +1,70 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  cross_build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Make script executable on Unix systems ---
+      - name: Make script executable (Unix only)
+        if: runner.os != 'Windows'
+        run: chmod +x ./ci.sh
+
+      # --- Install CMake on each OS ---
+      - name: Install CMake (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake
+
+      - name: Install CMake (macOS)
+        if: runner.os == 'macOS'
+        run: brew install cmake
+
+      - name: Install CMake (Windows)
+        if: runner.os == 'Windows'
+        run: choco install cmake -y
+
+      # --- Install GoogleTest on each OS ---
+      - name: Install GoogleTest (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libgtest-dev
+
+      - name: Install GoogleTest (macOS)
+        if: runner.os == 'macOS'
+        run: brew install googletest
+
+      - name: Install GoogleTest (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          git clone https://github.com/google/googletest.git
+          cd googletest
+          cmake -B build -S .
+          cmake --build build --config Release
+          cmake --install build --prefix "C:\Program Files\GTest"
+
+
+      # --- Run CI script for each OS ---
+      - name: Run CI script (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: ./ci.sh
+
+      - name: Run CI script (Windows)
+        if: runner.os == 'Windows'
+        run: cmd /c ci.bat
+
